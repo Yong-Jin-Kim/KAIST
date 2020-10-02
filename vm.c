@@ -332,8 +332,8 @@ copyuvm(pde_t *pgdir, uint sz)
   for(i = PDX(KERNBASE); i < NPDENTRIES; i++){
     pde = &d[i];
     pgtab = (pte_t*)P2V(PTE_ADDR(pgdir[i]));
-    if(((*pgtab & PTE_U) == 0) && (*pgtab & PTE_P)){
-      *pde = V2P(pgtab) | PTE_P | PTE_W | PTE_U;
+    if(*pgtab & PTE_P){
+      *pde = V2P(pgtab) | PTE_P | PTE_W;
     }
   }
 
